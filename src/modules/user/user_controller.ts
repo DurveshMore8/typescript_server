@@ -15,6 +15,18 @@ class UserController {
       res.status(400).json({ error: e.message });
     }
   };
+
+  static getUser = async (req: Request, res: Response): Promise<void> => {
+    const { email } = req.body;
+
+    try {
+      const user = await UserService.getUserByEmail(email);
+
+      res.status(200).json(user);
+    } catch (e) {
+      res.status(400).json({ error: e.message });
+    }
+  };
 }
 
 export default UserController;

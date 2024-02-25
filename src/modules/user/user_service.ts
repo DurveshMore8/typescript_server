@@ -14,6 +14,17 @@ class UserService {
   static saveUser = (user: UserModel) => {
     UserRepository.saveUser(user);
   };
+
+  static getUserByEmail = async (email: string): Promise<UserModel> => {
+    const user_document = await UserRepository.getUserByEmail(email);
+    const user: UserModel = new UserModel({
+      name: user_document.name,
+      email: user_document.email,
+      username: user_document.username,
+      password: user_document.password,
+    });
+    return user;
+  };
 }
 
 export default UserService;
